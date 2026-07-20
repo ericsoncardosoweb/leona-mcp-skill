@@ -1,249 +1,224 @@
 <p align="center">
   <a href="https://leonaflow.com">
-    <img src="https://img.shields.io/badge/Leona%20Flow-WhatsApp%20Automation-111827?style=for-the-badge" alt="Leona Flow" />
+    <strong>LEONA FLOW</strong>
   </a>
-  &nbsp;
-  <img src="https://img.shields.io/badge/Cursor-Agent%20Skill-0ea5e9?style=for-the-badge" alt="Cursor Skill" />
-  &nbsp;
-  <img src="https://img.shields.io/badge/MCP-Native-22c55e?style=for-the-badge" alt="MCP" />
 </p>
 
-<h1 align="center">Leona Flow — Cursor Skill</h1>
+<h1 align="center">Skill de Automação WhatsApp</h1>
 
 <p align="center">
-  <strong>A inteligência operacional para construir automações WhatsApp de elite na plataforma <a href="https://leonaflow.com">Leona Flow</a>.</strong><br />
-  Do pedido em linguagem natural ao fluxo vivo no canvas — com padrões de produção, não improvisos.
+  <strong>Descreva o que você quer. A IA monta o fluxo no Leona.</strong><br />
+  Mais simples. Mais rápido. Com a qualidade de quem já opera no WhatsApp de verdade.
 </p>
 
 <p align="center">
-  <a href="https://leonaflow.com"><strong>Conhecer o Leona Flow →</strong></a>
-  ·
-  <a href="https://leonaflow.com">Criar conta grátis</a>
-  ·
-  <a href="#instalação">Instalar a skill</a>
+  <a href="https://leonaflow.com"><strong>Criar conta grátis →</strong></a>
+  &nbsp;·&nbsp;
+  <a href="https://leonaflow.com">Conhecer o Leona Flow</a>
+  &nbsp;·&nbsp;
+  <a href="#como-instalar">Como instalar</a>
 </p>
 
 ---
 
-## Por que isso existe
+## O que é isso?
 
-O [Leona Flow](https://leonaflow.com) já entrega a máquina: WhatsApp estável, copiloto IA multimídia, conexões híbridas (API própria + Meta Oficial), CRM, PIX, MCP nativo.
+Uma **skill** (pacote de inteligência) para o seu assistente de IA — Cursor, Claude, VS Code e outras ferramentas compatíveis.
 
-Falta o **cérebro de construção** — o playbook que impede o agente de:
+Com ela conectada ao **[Leona Flow](https://leonaflow.com)**, você fala em português o que precisa (“funil de vendas”, “pedido com PIX”, “atendimento 24h”) e a IA **cria e organiza o fluxo** direto na sua conta.
 
-- trocar `wait_response` por intervalo e **perder a mensagem do lead**
-- soltar um botão PIX e achar que “pagamento está pronto”
-- empilhar 40 nós sem layout e entregar um canvas ilegível
-- inventar preço, chave PIX ou coluna de CRM que não existe na conta
-
-Esta skill transforma o Cursor + MCP Leona em um **arquiteto de fluxos**: valida o pedido, desenha o plano, monta a lógica, liga todas as saídas e organiza o canvas — para **qualquer negócio**.
-
-| Sem a skill | Com `/leona-flow` |
-|-------------|-------------------|
-| Fluxo “bonito” que quebra em produção | Topologia testada (coleta → persistência → decisão → ação) |
-| Copy robótica de SAC | Mensagens humanas, no ritmo do WhatsApp |
-| Canvas empilhado | Layout em colunas com espaçamento por altura do bloco |
-| IDs inventados | Sempre `list_*` da **sua** conta |
-| Um bloco PIX e fim | Esteira completa: instrução → wait → recibo → validação → rmkt |
+Você não precisa virar especialista em blocos.  
+Você precisa de **resultado no WhatsApp**.
 
 ---
 
-## O poder do Leona Flow
+## Por que Leona Flow?
 
-Plataforma feita para quem escala conversa como canal de venda e operação:
+O [Leona Flow](https://leonaflow.com) é a plataforma de automação WhatsApp pensada para quem quer crescer sem travar:
 
-- **Liberdade híbrida** — números próprios e/ou API Oficial Meta, na mesma conta  
-- **Copiloto IA multimídia** — texto, imagem, áudio, vídeo e música no fluxo  
-- **MCP nativo** — seus agentes (Cursor, Claude, GPT…) editan fluxos de verdade  
-- **Operação completa** — CRM/Kanban, departamentos, pixel, PIX, automações 24/7  
-- **Infra AWS** — pensada para pico de lançamento, não para demo  
+- Resposta rápida, 24 horas por dia  
+- IA multimídia no próprio fluxo  
+- Conexões flexíveis (do jeito que a sua operação precisa)  
+- CRM, times e escala na mesma conta  
+- Infraestrutura estável para o dia a dia e para o pico  
+
+**Esta skill** é o atalho: sua ideia → automação pronta no canvas, com boas práticas embutidas.
 
 > Seu instinto. Sua máquina.  
 > **[leonaflow.com](https://leonaflow.com)**
 
-Esta skill é o **manual vivo** para o agente usar essa máquina sem repetir os erros clássicos de automação WhatsApp.
+---
+
+## O que você ganha
+
+| Antes | Com a skill + Leona |
+|-------|---------------------|
+| Horas montando fluxo na mão | Minutos descrevendo o que quer |
+| Automação que “quebra” no meio | Fluxos pensados para conversa real |
+| Depender de alguém técnico o tempo todo | Você + IA + Leona, no seu ritmo |
+| Canvas bagunçado | Organização automática do layout |
+
+Serve para **qualquer negócio**: delivery, loja, curso, consultoria, clínica, imobiliária, ofertas no WhatsApp e muito mais.
 
 ---
 
-## O que a skill faz (de ponta a ponta)
+## Como funciona (em 3 passos)
 
-### 1. Descoberta antes de construir
-Valida objetivo, entrada, coleta, saída, copy e CRM. Mostra fluxograma. **Só implementa com o seu OK.**
+1. **Conta no Leona Flow** — [criar grátis](https://leonaflow.com)  
+2. **Instalar a skill** no seu app de IA (abaixo)  
+3. **Pedir no chat** — ex.: *“Use a skill leona-flow e monte um atendimento com menu e pagamento”*
 
-### 2. Escolha inteligente de blocos
-Sabe quando usar `wait_response`, `smart_interval`, menu 2.0, condition, manipulator, IA com `output_conditions`, HTTP, PIX, kanban, `connection_flow`.
-
-### 3. Memória do fluxo
-Domina variáveis de sistema, campos customizados, globals, `save_user_data` do menu/wait, `{ai.response}` e dados de recibo (`understand_receipt`).
-
-### 4. Dinheiro e silêncio
-Esteira de **PIX + comprovante** (não só o botão) e **remarketing** por timeout — o lead sempre pode responder antes da onda.
-
-### 5. Canvas profissional
-`layout_flow.py` organiza colunas e empilha irmãos pela **altura real do bloco** — sem sobreposição. Fluxos ramificados ganham zonas (setup · tronco · IA · rmkt).
-
-### 6. Segurança operacional
-**Nunca** `delete_flow`. Desativa com `archive_flow`. IDs estrangeiros são rejeitados — a skill força inventário da conta.
+A IA usa o MCP do Leona para criar o fluxo na **sua** conta. Depois é só abrir o Leona, dar um refresh no canvas e testar.
 
 ---
 
-## Para quem é
+## Como instalar
 
-Qualquer operação que vende ou atende no WhatsApp:
+### Pré-requisitos
 
-Pizzaria · restaurante · e-commerce · consultoria · cursos · info-produtos · clínicas · salões · imobiliárias · ofertas low-ticket · X1 · remarketing · pós-venda · suporte
+1. Conta em **[leonaflow.com](https://leonaflow.com)**  
+2. MCP Leona configurado no seu app de IA (token da conta — veja as configurações / integrações no Leona)  
+3. Git e, se for usar o organizador automático de canvas, **Python 3** instalado  
 
-Um playbook de **plataforma**. Zero lock-in de nicho.
+> Dica: no Leona, procure a área de **MCP / integrações** da sua conta para gerar o acesso. Em caso de dúvida, o suporte Leona te orienta.
 
 ---
 
-## Instalação
+### Cursor (recomendado)
 
-### 1. Skill no Cursor
+**1.** Abra o PowerShell (Windows) ou o Terminal (Mac/Linux).
 
-**macOS / Linux**
-
-```bash
-git clone https://github.com/ericsoncardosoweb/leona-mcp-skill.git ~/.cursor/skills/leona-flow
-```
-
-**Windows (PowerShell)**
+**Windows**
 
 ```powershell
 git clone https://github.com/ericsoncardosoweb/leona-mcp-skill.git "$env:USERPROFILE\.cursor\skills\leona-flow"
 ```
 
-Atualizar depois:
+**Mac / Linux**
 
 ```bash
-cd ~/.cursor/skills/leona-flow && git pull
+git clone https://github.com/ericsoncardosoweb/leona-mcp-skill.git ~/.cursor/skills/leona-flow
 ```
 
-### 2. Conta + MCP Leona
+**2.** No Cursor, confirme que o MCP Leona está ativo nas configurações.
 
-1. Crie ou acesse sua conta em **[leonaflow.com](https://leonaflow.com)**  
-2. Configure o servidor MCP Leona no `.cursor/mcp.json`  
-3. Opcional: `LEONA_MCP_URL` e `LEONA_MCP_TOKEN` no ambiente  
-
-### 3. Regra Cursor (recomendado)
-
-```powershell
-Copy-Item "$env:USERPROFILE\.cursor\skills\leona-flow\rules\leona-flow-builder.mdc" "$env:USERPROFILE\.cursor\rules\"
-```
-
-```bash
-cp ~/.cursor/skills/leona-flow/rules/leona-flow-builder.mdc ~/.cursor/rules/
-```
-
-### 4. Python 3
-
-Necessário para o script de layout (`scripts/layout_flow.py`).
-
----
-
-## Como usar no chat
+**3.** No chat do Agent, digite:
 
 ```
 /leona-flow
 ```
 
-Ou: *“Siga a skill leona-flow e monte este funil.”*
+Ou escreva: *“Siga a skill leona-flow”* e descreva o fluxo que você quer.
 
-O agente deve: validar → fluxograma → **seu OK** → MCP → wiring completo → `layout_flow.py` → pedir refresh no canvas Leona.
+**Atualizar a skill depois:**
 
-### Mapa rápido
+```bash
+cd ~/.cursor/skills/leona-flow && git pull
+```
 
-| Você pede | A skill lê |
-|-----------|------------|
-| Criar / editar fluxo | [builder.md](builder.md) |
-| Qual bloco usar | [blocks.md](blocks.md) |
-| Variáveis e campos | [variables.md](variables.md) |
-| Ordem inteligente | [sequencing.md](sequencing.md) |
-| IA / texto livre | [ai-copilot-pattern.md](ai-copilot-pattern.md) |
-| PIX / comprovante | [payment-comprovante.md](payment-comprovante.md) |
-| Remarketing | [remarketing.md](remarketing.md) |
-| Canvas bagunçado | [layout.md](layout.md) |
-| Subfluxos / esteira | [patterns-v2.md](patterns-v2.md) |
-| Kanban + etapa | [kanban-journey.md](kanban-journey.md) |
-| Copy WhatsApp | [whatsapp-copy.md](whatsapp-copy.md) |
-| JSON / handles | [reference.md](reference.md) |
-
-Índice do agente: **[SKILL.md](SKILL.md)**
+(Windows: `cd $env:USERPROFILE\.cursor\skills\leona-flow` e depois `git pull`)
 
 ---
 
-## Definition of Done
+### Claude (Claude Code / skills)
 
-Um fluxo só está “pronto” quando:
+Coloque a skill na pasta de skills do Claude:
 
-1. Pedido validado + plano/fluxograma aprovado  
-2. `get_flow` → `wiring_needed: false`  
-3. Contagem de nós alinhada ao plano  
-4. **`layout_flow.py` executado**  
-5. Você deu refresh / fit view no Leona  
+**Mac / Linux**
+
+```bash
+git clone https://github.com/ericsoncardosoweb/leona-mcp-skill.git ~/.claude/skills/leona-flow
+```
+
+**Windows**
 
 ```powershell
-python "$env:USERPROFILE\.cursor\skills\leona-flow\scripts\layout_flow.py" <FLOW_ID>
+git clone https://github.com/ericsoncardosoweb/leona-mcp-skill.git "$env:USERPROFILE\.claude\skills\leona-flow"
 ```
+
+Garanta o MCP Leona nas configurações do Claude e peça: *“Use a skill leona-flow para montar meu fluxo.”*
 
 ---
 
-## Regras de ouro (não negociáveis)
+### VS Code (agentes / skills compatíveis)
 
-| Regra | Por quê |
-|-------|---------|
-| Lead responde → `wait_response` | `smart_interval` **não escuta** o lead |
-| Não inventar fatos comerciais | Preço, PIX, URL e benefício vêm do seu plano |
-| IDs só da conta atual | `list_departments`, `list_crms`, `list_custom_fields`… |
-| Nunca `delete_flow` | Use `archive_flow` |
-| 1 entrega = 1 `message` multi-action | Evita canvas inchado e colunas fantasma |
+Se o seu fluxo de agente no VS Code usa a pasta padrão de skills do usuário:
+
+```bash
+git clone https://github.com/ericsoncardosoweb/leona-mcp-skill.git ~/.agents/skills/leona-flow
+```
+
+Ou, só neste projeto:
+
+```bash
+git clone https://github.com/ericsoncardosoweb/leona-mcp-skill.git .agents/skills/leona-flow
+```
+
+Ative o MCP Leona na extensão/agente que você usa e chame a skill pelo nome **leona-flow**.
 
 ---
 
-## Estrutura do repositório
+### OpenCode, Antigravity, Codex e outros
 
+A maioria das ferramentas modernas de agente lê skills nestas pastas (escolha a que o seu app documenta):
+
+| Pasta | Uso comum |
+|-------|-----------|
+| `~/.cursor/skills/leona-flow` | Cursor |
+| `~/.claude/skills/leona-flow` | Claude |
+| `~/.codex/skills/leona-flow` | Codex |
+| `~/.agents/skills/leona-flow` | Agentes genéricos / VS Code |
+
+Comando genérico (Mac/Linux):
+
+```bash
+git clone https://github.com/ericsoncardosoweb/leona-mcp-skill.git ~/.agents/skills/leona-flow
 ```
-leona-mcp-skill/
-├── SKILL.md                 # Router + hard rules
-├── builder.md               # Protocolo MCP
-├── blocks.md                # Escolha de blocos
-├── variables.md             # Campos, globals, saves
-├── sequencing.md            # Interação entre blocos
-├── ai-copilot-pattern.md    # IA em 3 camadas
-├── payment-comprovante.md   # PIX + recibo
-├── remarketing.md           # Silêncio / ondas
-├── layout.md                # Canvas + zonas
-├── patterns-v2.md           # Modularização
-├── kanban-journey.md        # CRM por marcos
-├── reference.md             # Receitas JSON
-├── whatsapp-copy.md         # Tom conversacional
-├── scripts/layout_flow.py   # Layout automático
-└── rules/                   # Regra Cursor opcional
+
+Windows (PowerShell), trocando a pasta conforme o app:
+
+```powershell
+git clone https://github.com/ericsoncardosoweb/leona-mcp-skill.git "$env:USERPROFILE\.agents\skills\leona-flow"
 ```
+
+Depois:
+
+1. Conecte o **MCP Leona** no app  
+2. Peça no chat para usar a skill **leona-flow**  
+3. Abra o [Leona Flow](https://leonaflow.com) e confira o canvas  
+
+Se o seu app tiver “importar skill do GitHub”, use este repositório:
+
+`https://github.com/ericsoncardosoweb/leona-mcp-skill`
 
 ---
 
-## Comece a escalar
+## Como pedir (exemplos)
 
-Automação WhatsApp não é “mais um chatbot”. É a diferença entre lead frio e conversão 24/7.
+Fale como você falaria com um especialista:
 
-**Plataforma:** [leonaflow.com](https://leonaflow.com)  
-**Skill:** este repositório + `/leona-flow` no Cursor  
+- *“Quero um boas-vindas com menu de 3 opções e transferência para humano.”*  
+- *“Monte um checkout com PIX e confirmação de pagamento.”*  
+- *“Crie um follow-up se a pessoa não responder em algumas horas.”*  
+- *“Organize o layout do fluxo X no canvas.”*  
+
+Quanto mais claro o objetivo, melhor o resultado. A skill cuida da montagem técnica no Leona.
+
+---
+
+## Precisa de ajuda?
+
+- Plataforma e conta: **[leonaflow.com](https://leonaflow.com)**  
+- Planos e suporte: pelo site e canais oficiais Leona  
+- Melhorias nesta skill: abra um Pull Request neste repositório  
+
+---
 
 <p align="center">
-  <a href="https://leonaflow.com"><strong>Criar conta no Leona Flow →</strong></a>
+  <strong>Pare de perder lead por falta de automação.</strong><br />
+  <a href="https://leonaflow.com">Comece grátis no Leona Flow →</a>
 </p>
 
----
-
-## Contribuição
-
-Melhorias de padrão de plataforma (blocos, wiring, layout, copy) são bem-vindas via Pull Request.  
-Mantenha a skill **conta-agnóstica** — sem IDs de um cliente específico.
-
----
-
 <p align="center">
-  Mantida para a comunidade <a href="https://leonaflow.com">Leona Flow</a>.<br />
-  <sub>Cursor Agent Skill · MCP · WhatsApp Automation</sub>
+  <sub>Skill oficial da comunidade · WhatsApp Automation · <a href="https://leonaflow.com">leonaflow.com</a></sub>
 </p>
