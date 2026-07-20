@@ -115,7 +115,7 @@ Oi, {first_name}! 👋
 | Atenção (1 linha) | Interesse (o que é / para quem) | Desejo (benefício concreto do plano) | Ação (próximo passo único) |
 
 ```
-*[Nome do ensaio/produto — do plano]*
+*[Nome do produto/serviço — do plano]*
 
 [1–2 linhas: transformação ou resultado — só fatos aprovados]
 
@@ -297,7 +297,7 @@ Bem-vindo! Somos a empresa X. Oferecemos diversos produtos. Selecione uma opçã
 ```
 Oi! 👋
 
-Aqui você monta seu ensaio em poucos passos — bem tranquilo.
+Aqui você monta seu pedido em poucos passos — bem tranquilo.
 
 *Por onde quer começar?*
 ```
@@ -328,7 +328,7 @@ Notamos que você não concluiu sua compra. Retorne ao fluxo para finalizar.
 ```
 Oi — vi que ficou pendente por aqui.
 
-Ainda quer seguir com o ensaio? É só me responder 🙂
+Ainda quer seguir? É só me responder 🙂
 ```
 
 ---
@@ -342,7 +342,7 @@ Ainda quer seguir com o ensaio? É só me responder 🙂
 | RMKT ondas | [remarketing.md](remarketing.md) |
 | PIX / comprovante | [payment-comprovante.md](payment-comprovante.md) |
 | Multi-action no mesmo nó | [blocks.md](blocks.md) § message |
-| Negócio Farol (preços, produtos) | `leona-farol` |
+| Variáveis / campos | [variables.md](variables.md) |
 
 ---
 

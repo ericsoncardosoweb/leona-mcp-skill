@@ -7,7 +7,7 @@ Layout horizontal em colunas para fluxos Leona via MCP.
 - Ramos paralelos empilhados na mesma coluna.
 
 Uso:
-  python layout_flow.py <flow_id> [--col-w 330] [--gap 70] [--dry-run]
+  python layout_flow.py <flow_id> [--col-w 330] [--gap 80] [--dry-run]
 
 Credenciais: .cursor/mcp.json ou LEONA_MCP_URL + LEONA_MCP_TOKEN.
 """
@@ -92,25 +92,48 @@ def is_timeout(conn):
     return conn.get("condition_type") == "timeout_or_unknown" or cfg.get("source_handle") in ("timeout", "b")
 
 
+def _action_cfg(node):
+    actions = node.get("actions") or []
+    return actions[0].get("config") or {} if actions else {}
+
+
 def node_height(node, out_count):
+    """Estimate canvas height so stacked siblings do not overlap."""
     t = node["node_type"]
     a = len(node.get("actions") or [])
+    cfg = _action_cfg(node)
+
     if t == "start":
-        return 70
+        return 72
     if t == "tags":
-        return 90
+        return 96
     if t == "distributor":
-        return 90 + 26 * max(1, out_count)
+        return 96 + 28 * max(1, out_count)
     if t == "wait_response":
-        return 240
+        return 220 + 18 * max(0, a - 2)
     if t == "interactive_menu":
-        return 200
+        # Rough option count from config if present
+        opts = cfg.get("options") or cfg.get("menu_options") or []
+        n_opts = len(opts) if isinstance(opts, list) else max(3, out_count - 2)
+        return 160 + 28 * max(2, n_opts)
     if t == "ai":
-        return 120
-    return 70 + 40 * max(1, a)
+        outs = cfg.get("output_conditions") or []
+        n_out = len(outs) if isinstance(outs, list) else 0
+        return 130 + 22 * max(1, n_out or out_count)
+    if t == "condition":
+        return 110 + 16 * max(1, out_count)
+    if t == "message":
+        return 64 + 44 * max(1, a)
+    if t in ("manipulator", "kanban", "department", "pixel", "chat_controller"):
+        return 88
+    if t == "smart_interval":
+        return 100
+    if t in ("integration", "connection_flow", "pix", "notification"):
+        return 100
+    return 72 + 40 * max(1, a)
 
 
-def compute_layout(flow, col_w=330, gap=70, x0=80, y0=80):
+def compute_layout(flow, col_w=330, gap=80, x0=80, y0=80):
     nodes = {n["id"]: n for n in flow["nodes"]}
     conns = flow["connections"]
     outg, inc = defaultdict(list), defaultdict(list)
@@ -190,7 +213,7 @@ def main():
     ap = argparse.ArgumentParser(description="Layout em colunas para fluxo Leona")
     ap.add_argument("flow_id")
     ap.add_argument("--col-w", type=int, default=330)
-    ap.add_argument("--gap", type=int, default=70)
+    ap.add_argument("--gap", type=int, default=80)
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 

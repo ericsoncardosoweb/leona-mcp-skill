@@ -1,122 +1,80 @@
-# Layout do canvas Leona
+# Layout do canvas
 
-> **Obrigatório ao fechar qualquer sessão de edição.** Hub: [SKILL.md](SKILL.md).
+> Obrigatório ao fechar edição. Hub: [SKILL.md](SKILL.md).
 
-## Dois níveis de layout
+## Dois níveis
 
-| Nível | Quando | Ferramenta |
-|-------|--------|------------|
-| **1. Esboço** | Sempre | `layout_flow.py` — colunas por profundidade |
-| **2. Faixas** | Fluxos 25+ nós, IA copilot, produção, RMKT | **[layout-lanes.md](layout-lanes.md)** — zonas funcionais |
+| Nível | Quando | Como |
+|-------|--------|------|
+| **1. Script** | Sempre | `layout_flow.py` — colunas por profundidade; Y pelo **altura do bloco** |
+| **2. Zonas** | ≥3 ramos **ou** wait+IA+rmkt/timeout | Ajuste manual / `reposition_flow_nodes` por faixa |
 
-**Regra:** em fluxos complexos, o script **sozinho não basta**. Após o script, aplicar o **padrão de faixas** (manual ou `reposition_flow_nodes` por zona).
-
-Referência canônica: fluxo **`66309`** [v2] Gerar Preview de Imagem.
+Durante a construção, empilhar em `{x:0,y:0}` é normal. Problema é **terminar** sem layout.
 
 ---
 
-## Regra de ouro
-
-**Nunca declare o fluxo pronto sem:**
-1. `wiring_needed: false`
-2. `layout_flow.py` executado (ou reposicionamento equivalente)
-3. **Faixas aplicadas** quando o fluxo tem IA hub + produção + remarketing ([layout-lanes.md](layout-lanes.md))
-
-Durante a Fase 2 (construção), blocos empilhados ou sobrepostos são **esperados**. O MCP usa `{x:0,y:0}` e auto-posiciona (+274px horizontal, +80px por ramo).
-
----
-
-## Procedimento (sempre nesta ordem)
+## Procedimento
 
 ```
-① wiring_needed: false (zero nós soltos, todo handle ligado)
-② layout_flow.py                    → esboço em colunas
-③ Padrão de faixas (layout-lanes.md) → setup vertical, tronco em cima, IA hub, produção, RMKT
-④ Ajustes pontuais                  → erro IA y+400~500; sync horizontal mesmo Y
-⑤ get_flow + refresh / fit view no Leona
+1. wiring_needed: false
+2. python …/scripts/layout_flow.py <FLOW_ID>
+   [--col-w 400 --gap 100 se muitos ramos]
+3. Se zonas necessárias → aplicar faixas (abaixo)
+4. Pedir refresh / fit view no Leona
 ```
-
-**Nunca:**
-- confiar **só** no script em fluxos com IA + produção + RMKT;
-- reposicionar bloco a bloco **durante** criação sem plano de zona;
-- aplicar layout **antes** do wiring completo;
-- dizer “pronto” se as faixas não estiverem legíveis.
 
 ```powershell
 python "$env:USERPROFILE\.cursor\skills\leona-flow\scripts\layout_flow.py" <FLOW_ID>
-python ...\layout_flow.py <FLOW_ID> --col-w 400 --gap 100
-python ...\layout_flow.py <FLOW_ID> --dry-run
+python …\layout_flow.py <FLOW_ID> --dry-run
 ```
 
-O script só altera **x/y** — nunca conexões ou ações.
+O script só move **x/y** — não mexe em conexões.
 
 ---
 
-## Modelo mental — faixas (preferir em fluxos complexos)
+## Como o script espaça
 
-Ver diagrama completo em **[layout-lanes.md](layout-lanes.md)**.
+- **Coluna (X)** = profundidade no grafo *forward* (back-edges de timeout/loop **não** avançam coluna).
+- **Y** = empilha irmãos na coluna; altura ≈ tipo do nó + nº de actions (evita sobreposição).
+- Timeout / volta = tende a ir **mais abaixo** na ordenação.
 
-- **Coluna esquerda (setup):** manip + tags + kanban **empilhados verticalmente**
-- **Pista superior:** tronco feliz (wait → validação → ação)
-- **Hub IA (centro, abaixo do tronco):** copilot — loops, RAG, exceções
-- **Corredor superior paralelo:** produção / sync / polling
-- **Pista inferior/direita:** remarketing / timeout
-
-Leitura: **esquerda → direita = progresso**; **cima = feliz/produção**; **meio = IA**; **baixo = RMKT**.
+Nova coluna natural após: `wait_response`, `interactive_menu`, branch de IA/condition.
 
 ---
 
-## Modelo mental — colunas (script, fluxos simples)
+## Modelo mental — zonas (fluxos ramificados)
 
-Para fluxos lineares ou &lt; 25 nós, o script basta:
+```
+Y menor (cima)     tronco feliz / produção
+Y médio            hub IA / exceções / menu_other
+Y maior (baixo)    remarketing / timeouts / loops de horário
 
-- **Coluna (X) = avanço no funil.** Nova coluna após `wait_response`, `interactive_menu` ou bloco que aguarda input.
-- **Mesma coluna** = envios seguidos **sem resposta do lead** → preferir **1 bloco `message`** com várias actions.
-- **Back-edge** = timeout/volta — **não** incrementa coluna no script; na faixa manual, vai para **pista RMKT**.
-- **Ramos paralelos** = saídas empilhadas na vertical (Y) na mesma coluna.
+X esquerda         setup: manipulators + tags + kanban (empilhados)
+X → direita        progresso do funil
+```
 
----
+Checklist zonas:
 
-## Constantes
-
-| Parâmetro | Script (`layout_flow.py`) | Faixas (manual) |
-|-----------|---------------------------|-----------------|
-| `col_w` | 330 px (400 em fluxos grandes) | clusters ~300–350 px |
-| `gap` | 70 px (100 espaçado) | separação entre **pistas** Y |
-| Setup | — | coluna X ≈ 400–450, stack vertical |
-
----
-
-## Posicionamento durante criação (MCP)
-
-- Cadeia linear: `position {x:0,y:0}`.
-- Ramo: `position_near_node_id` = id do pai, `auto_connect_to_flow_tail: false`, Y +80px por slot.
-- Após wiring: reposicionar **por zona** em lotes ([layout-lanes.md](layout-lanes.md) § Para o agente).
+- [ ] Setup vertical à esquerda (não espalhado no tronco)
+- [ ] Tronco legível esquerda→direita
+- [ ] Loops de horário / failure IA **fora** do tronco (abaixo ou cluster)
+- [ ] Ondas de rmkt em pista inferior, forward por onda
+- [ ] Nada sobreposto após script + ajuste
 
 ---
 
-## Exceções pós-script / pós-faixas
+## Durante criação (MCP)
 
-| Caso | Ajuste |
-|------|--------|
-| Erro IA | mesma X do bloco IA, **y + 400~500** (abaixo do hub, não no corredor sync) |
-| Sync CRM / integrações em sequência | **mesmo Y**, colunas consecutivas (corredor produção) |
-| Hub IA | **abaixo** do wait/cond do tronco — nunca mesma linha Y |
-| Loop `foto_ok` / volta ao menu | seta visual **sobe** para pista superior |
-| Loop horário `condition` ↔ `smart_interval` | back-edge na pista RMKT ou produção, não nova coluna forward |
+- Linear: `position {x:0,y:0}`
+- Ramo: `position_near_node_id` = pai, `auto_connect_to_flow_tail: false`
+- **Não** layout manual bloco a bloco no meio da construção
+- Após wiring: script → zonas se preciso
 
 ---
 
-## Anti-padrões visuais
+## Anti-padrões
 
-- Script aplicado e declarado pronto **sem faixas** (fluxo complexo)
-- IA na mesma linha Y do wait principal
-- Mensagem redundante entre IA `padrao` e wait
-- Dois waits com o mesmo papel (ex.: dois “envie foto”)
-- Produção misturada com hub IA ou RMKT
-- Setup em cadeia horizontal longa
-- Coluna nova por mensagem (sem wait entre elas)
-- Erro IA no meio do pipeline de sync
-- Nó de remescla duplicado após saídas paralelas
-
-Lista de faixas completa: [layout-lanes.md](layout-lanes.md) § Anti-padrões.
+- Pronto sem `layout_flow.py`
+- Layout antes do wiring completo
+- Confiar só no script quando há hub IA + rmkt + tronco (aplique zonas)
+- Vários `message` sem wait = colunas fantasma — fundir actions
