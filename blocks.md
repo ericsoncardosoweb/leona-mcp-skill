@@ -65,15 +65,18 @@ Actions: `send_message`, `send_multi_media`, `delay_between_messages`, `send_fil
 
 Actions típicas: `send_message` → `wait_for_response` → `save_user_data`.
 
-- Salvar no campo do plano
-- Wire **resposta** + **timeout**
-- Timeout que re-pede = back-edge; onda nova de rmkt = forward
+- **Sempre** `save_user_data` — dado sem campo some.
+- Buffer de conversa (próxima IA/msg/condition): campo **`resposta`**.
+- Dado persistente (CPF, comprovante, foto, e-mail…): campo **específico** — [variables.md](variables.md).
+- Wire **resposta** + **timeout**.
+- Timeout que re-pede = back-edge; onda nova de rmkt = forward.
 
 ---
 
 ## `interactive_menu`
 
-- `save_user_data` → campo ([variables.md](variables.md))
+- `save_user_data` → campo semântico (`produto`, `plano`, `horario`…) — [variables.md](variables.md)
+- Configure **timeout** no menu (`timeout_unit` / `timeout_value`) quando houver silêncio
 - Wire: cada `menu_option` + **`menu_other`** + **`menu_timeout`**
 - List 4–10 / buttons 2–3; `option_id` estável
 
@@ -87,21 +90,30 @@ Actions típicas: `send_message` → `wait_for_response` → `save_user_data`.
 
 Sempre **success** + **failure**. Não ler campo antes de gravar.
 
+Pré-filtro de upload: `type` image/document vs text/audio/video/sticker.
+
 ---
 
 ## `manipulator`
 
-1 action/nó. Sequência de nós para vários campos. Ops matemáticas ok. Ver [variables.md](variables.md).
+1 action/nó. Sequência de nós para vários campos. Reutilizar chaves existentes. Ver [variables.md](variables.md).
+
+---
+
+## `tags`
+
+`list_labels` antes. **Não duplicar** etiquetas (mesmo significado = mesmo nome). Ver [variables.md](variables.md).
 
 ---
 
 ## `ai`
 
-- 1 bloco = 1 tarefa (triagem **ou** validação **ou** resposta — não tudo)
-- `output_conditions` (≤10, ≤200 chars) antes do prompt; `fallback_output_key` obrigatório se houver conditions
-- Multimodal / **`understand_receipt`** quando faz sentido
-- `auto_send_response: false` em funis controlados
-- Auth: integração da conta; failure → `error.log`
+- 1 bloco = 1 papel (extrator **ou** validador **ou** router **ou** agente)
+- Credencial: copiar integração **da conta** (fluxo recente) — [ai-copilot-pattern.md](ai-copilot-pattern.md)
+- `output_conditions` + `fallback_output_key`; `auto_send_response: false` em funil
+- `fail_reason_variable: error.log`
+- Entrada: `{resposta}` ou campo persistente certo
+- Multimodal / `understand_receipt` conforme papel
 - Padrão completo: [ai-copilot-pattern.md](ai-copilot-pattern.md)
 
 ---

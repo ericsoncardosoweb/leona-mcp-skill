@@ -1,5 +1,5 @@
 ---
-description: Ao criar/editar fluxos Leona via MCP — skill leona-flow (wait_response, layout, nunca delete_flow).
+description: Ao criar/editar fluxos Leona via MCP — skill leona-flow (campos reutilizáveis, wait+save, layout, nunca delete_flow).
 alwaysApply: false
 ---
 
@@ -7,14 +7,15 @@ alwaysApply: false
 
 Quando o usuário pedir fluxo Leona, MCP Leona, `/leona-flow`, PIX, comprovante ou automação WhatsApp:
 
-1. Ler `~/.cursor/skills/leona-flow/SKILL.md` e o arquivo do router (builder, blocks, variables…).
+1. Ler `~/.cursor/skills/leona-flow/SKILL.md` e o arquivo do router (`variables`, `builder`, `blocks`…).
 2. **Nunca** `delete_flow` — `archive_flow`.
 3. Validar pedido → fluxograma → **OK** antes de construir (exceto edit pontual confirmado).
 4. Lead responde → **`wait_response`** / menu; `smart_interval` só pausa.
-5. IDs e campos → `list_*` da conta atual.
-6. Pronto só com `wiring_needed: false` + `layout_flow.py`.
-7. Copy → `whatsapp-copy.md`; não inventar fatos comerciais.
-8. 1 entrega → 1 `message` com várias actions.
+5. **Campos/labels:** `list_custom_fields` / `list_labels` — reutilizar; sem duplicar. Wait: save em `resposta` (buffer) ou campo persistente (`cpf`, `comprovante`…).
+6. **IA auth:** copiar `api_key_source` + `ai_integration_id` de fluxo recente da conta (senão global); `error.log`; 1 papel por bloco.
+7. Pronto só com `wiring_needed: false` + `layout_flow.py`.
+8. Copy → `whatsapp-copy.md`; não inventar fatos comerciais.
+9. 1 entrega → 1 `message` com várias actions.
 
 ```powershell
 python "$env:USERPROFILE\.cursor\skills\leona-flow\scripts\layout_flow.py" <FLOW_ID>

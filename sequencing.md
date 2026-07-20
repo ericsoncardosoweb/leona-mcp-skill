@@ -10,7 +10,7 @@ COLETA → PERSISTÊNCIA → DECISÃO → AÇÃO
 
 | Fase | Blocos | Regra |
 |------|--------|-------|
-| Coleta | wait, menu | 1 pergunta clara; timeout pensado |
+| Coleta | wait, menu | 1 pergunta; **sempre save** (`resposta` ou campo persistente) |
 | Persistência | save no wait/menu, manipulator | **Antes** de quem lê o valor |
 | Decisão | ai, condition | 1 ai = 1 tarefa; preferir `output_conditions` a cascata longa |
 | Ação | message, integration, kanban, connection_flow, department | Depois de decidir |

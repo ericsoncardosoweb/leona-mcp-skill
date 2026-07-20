@@ -2,9 +2,9 @@
 name: leona-flow
 description: >-
   Expert WhatsApp flow builder for Leona MCP (any business). Validates request + flowchart OK before building;
-  uses wait_response for lead input (never smart_interval); AI output_conditions; variables/fields;
-  payment+receipt validation; remarketing via wait timeout; layout_flow.py before done; never delete_flow
-  (archive_flow). Copy via whatsapp-copy.md. Use /leona-flow.
+  wait_response with save to resposta or persistent fields; reuse labels/fields (no duplicates);
+  AI auth from account integration; output_conditions; payment+receipt; remarketing via wait timeout;
+  layout_flow.py before done; never delete_flow (archive_flow). Use /leona-flow.
 ---
 
 # Leona Flow
@@ -39,11 +39,12 @@ Skill de **plataforma [Leona Flow](https://leonaflow.com)** — criar e editar a
 1. **Antes de construir:** validar pedido → fluxograma/plano → **OK do usuário** ([builder.md](builder.md)).
 2. Lead deve responder → **`wait_response`** (ou menu). **`smart_interval` = pausa do fluxo**, não escuta o lead.
 3. **Nunca `delete_flow`.** Desativar: `archive_flow`.
-4. IDs de conta (`department`, `crm`, `pixel`, labels, campos) → sempre `list_*` da **conta atual**.
+4. IDs de conta (`department`, `crm`, `pixel`, **labels**, **campos**) → sempre `list_*`; **não duplicar** etiqueta/campo — [variables.md](variables.md).
 5. Schema → `get_node_type` **1× por `node_type` novo** na sessão (antes do primeiro `add_flow_node` desse tipo).
 6. **Não diga pronto** sem: `wiring_needed: false` + **`layout_flow.py` executado**.
 7. 1 entrega ao lead (texto+mídia+delay) → **1 `message` com várias actions**, não vários nós.
 8. Falha de IA/integração crítica → ligar **failure**; não deixar solto.
+9. Wait: salvar em **`resposta`** (buffer) ou campo **persistente** semântico; IA auth = integração da conta ([variables.md](variables.md), [ai-copilot-pattern.md](ai-copilot-pattern.md)).
 
 ---
 
@@ -66,8 +67,9 @@ Skill de **plataforma [Leona Flow](https://leonaflow.com)** — criar e editar a
 - `smart_interval` no lugar de `wait_response`
 - Só bloco `pix` sem wait + validação de comprovante
 - `add_flow_node` sem OK do usuário
-- Inventar IDs, preços, chaves PIX ou campos inexistentes
+- Inventar IDs, preços, chaves PIX ou campos/etiquetas duplicadas
 - `delete_flow`
 - Vários `message` seguidos sem wait no meio
 - Corrigir `request_body` HTTP em massa via MCP ([reference.md](reference.md))
 - Declarar pronto sem `layout_flow.py`
+- Wait sem `save_user_data` / inventar `ai_integration_id` sem copiar da conta

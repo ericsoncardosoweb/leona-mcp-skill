@@ -36,13 +36,14 @@ Esteira / vários fluxos / kanban novo / roteador?
 ## Fases MCP (após OK)
 
 ```
-0  Contexto     get_flow | list_flows se reuso | list_* se dept/crm/pixel/campos
+0  Contexto     get_flow | list_flows se reuso | list_* (dept/crm/pixel/**campos**/**labels**)
 1  Schema       get_node_type 1× por cada node_type novo da sessão
-2  Construção   add_flow_node position {x:0,y:0}; ramos: position_near_node_id + auto_connect false
-3  Wiring       add_flow_connection em CADA saída de branch
-4  Verificar    get_flow → wiring_needed: false; nós ≈ plano
-5  Layout       python …/layout_flow.py <FLOW_ID>
-6  Entrega      resumo + pedir refresh/fit view
+2  Auth IA      se for criar `ai`: copiar integração de fluxo recente da conta
+3  Construção   add_flow_node position {x:0,y:0}; ramos: position_near_node_id + auto_connect false
+4  Wiring       add_flow_connection em CADA saída de branch
+5  Verificar    get_flow → wiring_needed: false; nós ≈ plano
+6  Layout       python …/layout_flow.py <FLOW_ID>
+7  Entrega      resumo + pedir refresh/fit view
 ```
 
 Prompts MCP (se existirem no servidor): `flow_mcp_context`, `flow_content_writing_guide`, `connection_management_guide`, `flow_branch_positioning_guide`. Se ausentes → seguir esta skill + `get_node_type`.

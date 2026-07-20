@@ -36,7 +36,9 @@ Troque `fieldName` pelo campo do wait/menu.
 }
 ```
 
-Auth preferida: `api_key_source: integration` + `ai_integration_id` da conta.
+Auth preferida: descobrir na conta (`get_flow` em IA recente) → `api_key_source: integration` + `ai_integration_id`; senão `{g_chave_gpt}`. Ver [ai-copilot-pattern.md](ai-copilot-pattern.md).
+
+Campos: buffer `resposta` vs persistentes — [variables.md](variables.md).
 
 ## Wiring — handles
 

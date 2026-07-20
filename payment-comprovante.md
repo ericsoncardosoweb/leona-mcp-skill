@@ -12,13 +12,15 @@ Só bloco `pix` e parar. PIX na Leona = **esteira**.
 1. Instrução          message (chave, recebedor, valor — do plano)
 2. Facilitar cópia    pix e/ou interactive_menu (botão copiar)
 3. Aguardar           wait_response + save → campo comprovante
-4. Pré-filtro         condition type image → document
+4. Pré-filtro         condition type image|document → ok; text|audio|video|sticker → copilot / re-pedir
 5. Extração           ai #1 understand_receipt (+ image/pdf se preciso)
 6. Validação          ai #2 confere valor/chave/recebedor esperados
 7. Rotas              válido → sucesso | inválido → voltar wait | incorreto → humano
 ```
 
 Timeout do wait → [remarketing.md](remarketing.md) (wait, não smart_interval).
+
+Campo do wait: preferir **`comprovante`** (persistente). Credencial das IAs: copiar integração da conta — [ai-copilot-pattern.md](ai-copilot-pattern.md).
 
 ---
 
