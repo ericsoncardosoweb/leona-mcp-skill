@@ -9,7 +9,7 @@ description: >-
 
 # Leona Flow
 
-Skill de **plataforma Leona** — criar e editar automações WhatsApp via MCP para **qualquer negócio** (delivery, e-commerce, cursos, consultoria, serviços, ofertas low-ticket, etc.).
+Skill de **plataforma [Leona Flow](https://leonaflow.com)** — criar e editar automações WhatsApp via MCP para **qualquer negócio** (delivery, e-commerce, cursos, consultoria, serviços, ofertas low-ticket, etc.).
 
 **Não inventar fatos comerciais** (preço, prazo, chave PIX, URL, benefício). **Pode** reescrever tom/estrutura da copy ([whatsapp-copy.md](whatsapp-copy.md)).
 
