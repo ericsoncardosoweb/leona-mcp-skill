@@ -1,0 +1,31 @@
+---
+description: Ao criar ou editar fluxos Leona via MCP — layout obrigatório, wait_response, PIX/comprovante, nunca delete_flow. Skill leona-flow.
+alwaysApply: false
+---
+
+# Leona — Flow Builder
+
+Quando o usuário pedir fluxo Leona, MCP Leona, `/leona-flow`, PIX, comprovante ou automação WhatsApp:
+
+1. Ler skill **`~/.cursor/skills/leona-flow/SKILL.md`** e seguir links (`builder.md`, `layout.md`, `blocks.md`, **`sequencing.md`**, **`whatsapp-copy.md`**).
+2. **Nunca** `delete_flow` — desativar com `archive_flow`.
+3. **Antes de construir:** validar pedido → fluxograma/plano → **OK do usuário** (`builder.md` § Antes de criar). Esteira: mapear jornada → estratégia → plano. Fluxo simples: Template C.
+4. **Não dizer “pronto”** até:
+   - `get_flow` → `wiring_needed: false`
+   - **`layout_flow.py`** executado com sucesso
+4. Lead deve responder → **`wait_response`**, nunca `smart_interval` (exceto loop de horário comercial).
+5. PIX/comprovante → **`payment-comprovante.md`**
+6. Remarketing → **`remarketing.md`** (wait + timeout; gate Horários ou condition+loop)
+7. Sequência de blocos / remarketing voltar vs avançar → **`sequencing.md`**
+8. Fluxos modulares / reutilizar subfluxos → **`patterns-v2.md`** (`list_flows` antes de `create_flow`)
+9. Kanban + manipulator / marcos jornada → **`kanban-journey.md`**
+10. Fluxo ≥15 nós, ramos ou esteira modular → **Template A/B em builder.md** + OK do usuário.
+11. Não inventar preços, prazos, URLs ou benefícios. Copy → **`whatsapp-copy.md`** (tom humano, formatação WA, conversão).
+12. Mesma entrega (texto+mídia+dica) → **1 bloco `message`** com várias actions — ver blocks.md § message.
+
+Script layout:
+```powershell
+python "$env:USERPROFILE\.cursor\skills\leona-flow\scripts\layout_flow.py" <FLOW_ID>
+```
+
+Farol Família → skill `leona-farol`.
